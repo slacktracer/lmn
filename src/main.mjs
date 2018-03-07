@@ -1,8 +1,15 @@
 import parse5 from "parse5";
 
+// https://coderwall.com/p/iprsng/convert-snake-case-to-camelcase
+function snakeToCamel(s) {
+  return s.replace(/(-\w)/g, function(m) {
+    return m[1].toUpperCase();
+  });
+}
+
 function parseAttributes(attrs) {
   return attrs.reduce((result, attr) => {
-    result[attr.name] = attr.value;
+    result[snakeToCamel(attr.name)] = attr.value;
     return result;
   }, {});
 }

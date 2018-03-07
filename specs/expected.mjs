@@ -20,7 +20,7 @@ export default JSON.stringify([
             type: "email",
             class: "form-control",
             id: "exampleInputEmail1",
-            "aria-describedby": "emailHelp",
+            ariaDescribedby: "emailHelp",
             placeholder: "Enter email"
           }
         ],
