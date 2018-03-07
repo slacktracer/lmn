@@ -1,32 +1,36 @@
 import parse5 from "parse5";
 
 function parseAttributes(attrs) {
-  return !attrs
-    ? {}
-    : attrs.reduce((result, attr) => {
-        result[attr.name] = attr.value;
-        return result;
-      }, {});
+  return attrs.reduce((result, attr) => {
+    result[attr.name] = attr.value;
+    return result;
+  }, {});
 }
 
 function parseNodes(nodes) {
-  return !nodes
-    ? []
-    : nodes.reduce((result, node) => {
-        if (node.nodeName !== "#text") {
-          const array = [node.tagName];
-          node.attrs.length && array.push(parseAttributes(node.attrs));
-          node.childNodes.length && array.push(parseNodes(node.childNodes));
+  if (nodes.length === 1) {
+    const [node] = nodes;
+    if (node.nodeName === "#text" && !node.value.startsWith("\n")) {
+      return node.value;
+    }
+  }
 
-          return result.concat([array]);
-        }
+  return nodes.reduce((result, node) => {
+    if (node.nodeName !== "#text") {
+      const array = [node.tagName];
 
-        if (!node.value.startsWith("\n")) {
-          return result.concat(node.value);
-        }
+      node.attrs.length && array.push(parseAttributes(node.attrs));
+      node.childNodes.length && array.push(parseNodes(node.childNodes));
 
-        return result;
-      }, []);
+      return result.concat([array]);
+    }
+
+    if (!node.value.startsWith("\n")) {
+      return result.concat(node.value);
+    }
+
+    return result;
+  }, []);
 }
 
 export default function(domString) {
