@@ -1,6 +1,4 @@
-import parse5 from 'parse5';
-
-const parsedFragment = parse5.parseFragment(`
+export default `
 <form>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
@@ -17,19 +15,4 @@ const parsedFragment = parse5.parseFragment(`
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-`);
-
-function parseAttributes(attrs) {
-  return !attrs ? {} : attrs.reduce((result, attr) => {
-    result[attr.name] = attr.value;
-    return result;
-  }, {});
-}
-
-function parseNodes(nodes) {
-  return !nodes ? [] : nodes.map(node => node.nodeName !== '#text' ? [node.tagName, parseAttributes(node.attrs), parseNodes(node.childNodes)] : !node.value.startsWith('\\n') && node.value);
-}
-
-const y = parseNodes(parsedFragment.childNodes);
-
-console.log(JSON.stringify(y, null, 2));
+`;

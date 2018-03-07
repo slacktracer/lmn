@@ -1,10 +1,14 @@
 {
   "name": "lmn",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/main.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "boot": "node --experimental-modules src/main",
+    "lint": "eslint '{src,specs}/**/*.{js,mjs}'",
+    "prettify": "prettier --write '{src,specs}/**/*.{js,mjs}'",
+    "start": "nodemon --exec 'npm run prettify --silent && npm run lint --silent && npm test --silent && npm run boot || exit 1'",
+    "test": "node --experimental-modules specs/main.spec"
   },
   "repository": {
     "type": "git",
@@ -18,5 +22,10 @@
   "homepage": "https://github.com/slacktracer/lmn#readme",
   "dependencies": {
     "parse5": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "nodemon": "^1.17.1",
+    "prettier": "^1.11.1"
   }
 }
