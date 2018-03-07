@@ -12,16 +12,21 @@ function parseAttributes(attrs) {
 function parseNodes(nodes) {
   return !nodes
     ? []
-    : nodes.map(
-        node =>
-          node.nodeName !== "#text"
-            ? [
-                node.tagName,
-                parseAttributes(node.attrs),
-                parseNodes(node.childNodes)
-              ]
-            : !node.value.startsWith("\\n") && node.value
-      );
+    : nodes.reduce((result, node) => {
+        if (node.nodeName !== "#text") {
+          const array = [node.tagName];
+          node.attrs.length && array.push(parseAttributes(node.attrs));
+          node.childNodes.length && array.push(parseNodes(node.childNodes));
+
+          return result.concat([array]);
+        }
+
+        if (!node.value.startsWith("\n")) {
+          return result.concat(node.value);
+        }
+
+        return result;
+      }, []);
 }
 
 export default function(domString) {

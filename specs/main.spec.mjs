@@ -7,4 +7,6 @@ const result = lmn(domString);
 
 const resultStringified = JSON.stringify(result);
 
+global.console.log(resultStringified);
+
 assert.equal(resultStringified, expected, "Not there yet... Sorry!");

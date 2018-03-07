@@ -1,7 +1,6 @@
 export default JSON.stringify([
   [
     "form",
-    {},
     [
       [
         "div",
@@ -24,8 +23,7 @@ export default JSON.stringify([
               id: "exampleInputEmail1",
               "aria-describedby": "emailHelp",
               placeholder: "Enter email"
-            },
-            []
+            }
           ],
           [
             "small",
@@ -57,8 +55,7 @@ export default JSON.stringify([
               class: "form-control",
               id: "exampleInputPassword1",
               placeholder: "Password"
-            },
-            []
+            }
           ]
         ]
       ],
@@ -74,8 +71,7 @@ export default JSON.stringify([
               type: "checkbox",
               class: "form-check-input",
               id: "exampleCheck1"
-            },
-            []
+            }
           ],
           [
             "label",
@@ -83,7 +79,7 @@ export default JSON.stringify([
               class: "form-check-label",
               for: "exampleCheck1"
             },
-            ["Check me out ", ["i", {}, ["How cool is it?"]]]
+            ["Check me out ", ["i", ["How cool is it?"]]]
           ]
         ]
       ],
