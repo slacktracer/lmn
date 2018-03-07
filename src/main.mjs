@@ -16,6 +16,10 @@ function parseNodes(nodes) {
   }
 
   return nodes.reduce((result, node) => {
+    if (node.nodeName === "#text" && node.value.startsWith("\n")) {
+      return result;
+    }
+
     if (node.nodeName !== "#text") {
       const array = [node.tagName];
 
@@ -25,15 +29,18 @@ function parseNodes(nodes) {
       return result.concat([array]);
     }
 
-    if (!node.value.startsWith("\n")) {
-      return result.concat(node.value);
-    }
-
-    return result;
+    return result.concat(node.value);
   }, []);
 }
 
 export default function(domString) {
-  const parsedFragment = parse5.parseFragment(domString);
-  return parseNodes(parsedFragment.childNodes);
+  const parsedFragment = parse5.parseFragment(domString.trim());
+
+  if (parsedFragment.childNodes.length > 1) {
+    throw new Error("More than one element as root.");
+  }
+
+  const [parsedNodes] = parseNodes(parsedFragment.childNodes);
+
+  return parsedNodes;
 }
