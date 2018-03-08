@@ -1,15 +1,15 @@
 import parse5 from "parse5";
 
-// https://coderwall.com/p/iprsng/convert-snake-case-to-camelcase
-function snakeToCamel(s) {
-  return s.replace(/(-\w)/g, function(m) {
-    return m[1].toUpperCase();
-  });
-}
+const sorter = (a, b) => a.name > b.name;
+
+const replacer = ([, match]) => match.toUpperCase();
 
 function parseAttributes(attrs) {
-  return attrs.reduce((result, attr) => {
-    result[snakeToCamel(attr.name)] = attr.value;
+  const sorted = [...attrs].sort(sorter);
+
+  return sorted.reduce((result, attr) => {
+    result[attr.name.replace(/(-\w)/g, replacer)] = attr.value;
+
     return result;
   }, {});
 }
@@ -17,6 +17,7 @@ function parseAttributes(attrs) {
 function parseNodes(nodes) {
   if (nodes.length === 1) {
     const [node] = nodes;
+
     if (node.nodeName === "#text" && !node.value.startsWith("\n")) {
       return node.value;
     }
@@ -40,7 +41,7 @@ function parseNodes(nodes) {
   }, []);
 }
 
-export default function(domString) {
+export default function lmn(domString) {
   const parsedFragment = parse5.parseFragment(domString.trim());
 
   if (parsedFragment.childNodes.length > 1) {
