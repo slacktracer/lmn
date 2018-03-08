@@ -14,7 +14,7 @@ const domString = `
   </div>
   <div class="form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out <i>How cool is it?</i></label>
+    <label class="form-check-label" for="exampleCheck1">Check me out, <i>how cool is it?</i></label>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
@@ -100,7 +100,7 @@ const reference = [
             class: "form-check-label",
             for: "exampleCheck1"
           },
-          ["Check me out ", ["i", "How cool is it?"]]
+          ["Check me out, ", ["i", "how cool is it?"]]
         ]
       ]
     ],
