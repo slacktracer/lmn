@@ -1,13 +1,14 @@
 {
   "name": "lmn",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "",
   "main": "src/main.mjs",
   "scripts": {
     "boot": "node --experimental-modules src/main",
-    "lint": "eslint '{src,specs}/**/*.{js,mjs}'",
-    "prettify": "prettier --write '{src,specs}/**/*.{js,mjs}'",
-    "start": "nodemon --exec 'npm run prettify --silent && npm run lint --silent && npm test --silent && npm run boot || exit 1'",
+    "build": "rollup --config build/rollup.config.mjs",
+    "lint": "eslint '{build,specs,src}/**/*.{js,mjs}'",
+    "prettify": "prettier --write '{build,specs,src}/**/*.{js,mjs}'",
+    "start": "nodemon --exec 'npm run prettify --silent && npm run lint --silent && npm test --silent && npm run boot && npm run build || exit 1'",
     "test": "node --experimental-modules specs/main.spec"
   },
   "repository": {
@@ -26,6 +27,11 @@
   "devDependencies": {
     "eslint": "^4.18.2",
     "nodemon": "^1.17.1",
-    "prettier": "^1.11.1"
+    "prettier": "^1.11.1",
+    "rollup": "^0.56.5",
+    "rollup-plugin-commonjs": "^9.0.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-resolve": "^3.2.0",
+    "rollup-plugin-uglify": "^3.0.0"
   }
 }
