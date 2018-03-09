@@ -1,14 +1,15 @@
 import parse5 from "parse5";
 
-const sorter = (a, b) => a.name > b.name;
+const isLineBreakAndZeroOrMoreSpaces = new RegExp("^\\n\\s*$", "g");
 
-const replacer = ([, match]) => match.toUpperCase();
+const isLineBreakWithText = new RegExp("(\\n\\s*)|([^\\s].+)", "g");
 
 function parseAttributes(attrs) {
-  const sorted = [...attrs].sort(sorter);
+  const sorted = [...attrs].sort((a, b) => a.name > b.name);
 
   return sorted.reduce((result, attr) => {
-    result[attr.name.replace(/(-\w)/g, replacer)] = attr.value;
+    result[attr.name.replace(/(-\w)/g, ([, match]) => match.toUpperCase())] =
+      attr.value;
 
     return result;
   }, {});
@@ -18,13 +19,24 @@ function parseNodes(nodes) {
   if (nodes.length === 1) {
     const [node] = nodes;
 
-    if (node.nodeName === "#text" && !node.value.startsWith("\n")) {
-      return node.value;
+    if (
+      node.nodeName === "#text" &&
+      !isLineBreakAndZeroOrMoreSpaces.test(node.value)
+    ) {
+      return node.value.replace(
+        isLineBreakWithText,
+        (matches, group1, group2) => {
+          return group2 || "";
+        }
+      );
     }
   }
 
   return nodes.reduce((result, node) => {
-    if (node.nodeName === "#text" && node.value.startsWith("\n")) {
+    if (
+      node.nodeName === "#text" &&
+      isLineBreakAndZeroOrMoreSpaces.test(node.value)
+    ) {
       return result;
     }
 
@@ -37,7 +49,11 @@ function parseNodes(nodes) {
       return result.concat([array]);
     }
 
-    return result.concat(node.value);
+    if (!isLineBreakAndZeroOrMoreSpaces.test(node.value)) {
+      return result.concat(node.value);
+    }
+
+    return result;
   }, []);
 }
 

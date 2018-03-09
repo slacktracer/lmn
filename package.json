@@ -1,6 +1,6 @@
 {
   "name": "lmn",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "src/main.mjs",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "rollup --config build/rollup.config.mjs",
     "lint": "eslint '{build,specs,src}/**/*.{js,mjs}'",
     "prettify": "prettier --write '{build,specs,src}/**/*.{js,mjs}'",
-    "start": "nodemon --exec 'npm run prettify --silent && npm run lint --silent && npm test --silent && npm run boot && npm run build || exit 1'",
+    "start": "nodemon --watch ./src --watch ./specs --exec 'npm run prettify --silent && npm run lint --silent && npm test --silent && npm run boot && npm run build || exit 1'",
     "test": "node --experimental-modules specs/main.spec"
   },
   "repository": {
