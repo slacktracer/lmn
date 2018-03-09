@@ -45,7 +45,12 @@ const state = {
 
 const actions = {
   transform: () => state => {
-    return { out: JSON.stringify(lmn(state.input), null, 2) };
+    try {
+      const result = lmn(state.input)
+      return { out: JSON.stringify(result, null, 2) };
+    } catch (error) {
+      return { out: error };
+    }
   },
   setInput: value => ({ input: value })
 };
