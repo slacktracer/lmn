@@ -8,8 +8,7 @@ function parseAttributes(attrs) {
   const sorted = [...attrs].sort((a, b) => a.name > b.name);
 
   return sorted.reduce((result, attr) => {
-    result[attr.name.replace(/(-\w)/g, ([, match]) => match.toUpperCase())] =
-      attr.value;
+    result[attr.name] = attr.value;
 
     return result;
   }, {});

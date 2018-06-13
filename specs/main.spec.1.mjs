@@ -39,7 +39,7 @@ const reference = [
         [
           "input",
           {
-            ariaDescribedby: "emailHelp",
+            "aria-describedby": "emailHelp",
             class: "form-control",
             id: "exampleInputEmail1",
             placeholder: "Enter email",
