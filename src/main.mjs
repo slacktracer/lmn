@@ -57,8 +57,8 @@ function parseNodes(nodes) {
   }, []);
 }
 
-export default function lmn(domString, flag = "html") {
-  if (flag === "jsx") {
+export default function lmn(domString, mode = "html") {
+  if (mode === "jsx") {
     return jsx.fromString(domString);
   }
 
