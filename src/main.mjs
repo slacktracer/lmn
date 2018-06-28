@@ -1,3 +1,4 @@
+import jsx from "jsx-transform";
 import parse5 from "parse5";
 
 const isLineBreakAndZeroOrMoreSpaces = new RegExp("^\\n\\s*$", "g");
@@ -56,7 +57,11 @@ function parseNodes(nodes) {
   }, []);
 }
 
-export default function lmn(domString) {
+export default function lmn(domString, flag = "html") {
+  if (flag === "jsx") {
+    return jsx.fromString(domString);
+  }
+
   const parsedFragment = parse5.parseFragment(domString.trim());
 
   if (parsedFragment.childNodes.length > 1) {
