@@ -4,7 +4,7 @@
   "description": "Transform HTML in \"ijk\"",
   "main": "./src/main.mjs",
   "scripts": {
-    "build": "parcel build ./webapp/index.html --out-dir ./docs",
+    "build": "parcel build ./webapp/index.html --out-dir ./docs --public-url ./lmn/",
     "start": "node --experimental-modules ./src/main.mjs",
     "start:docs": "parcel ./webapp/index.html",
     "test": "node --experimental-modules ./specs/main.spec.mjs"
