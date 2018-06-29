@@ -1,12 +1,12 @@
 {
   "name": "lmn",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Transform HTML in \"ijk\"",
   "main": "./src/main.mjs",
   "scripts": {
-    "build": "parcel build ./webapp/index.html --out-dir ./docs --public-url .",
+    "build:app": "rm -r ./docs && parcel build ./webapp/index.html --out-dir ./docs --public-url .",
     "start": "node --experimental-modules ./src/main.mjs",
-    "start:docs": "parcel ./webapp/index.html",
+    "start:app": "parcel ./webapp/index.html --open",
     "test": "node --experimental-modules ./specs/main.spec.mjs"
   },
   "repository": {

@@ -57,9 +57,9 @@ function parseNodes(nodes) {
   }, []);
 }
 
-export default function lmn(domString, mode = "html") {
-  if (mode === "jsx") {
-    return jsx.fromString(domString);
+export default function lmn(domString, mode = "HTML") {
+  if (mode === "JSX") {
+    return jsx.fromString(domString, { factory: "h" });
   }
 
   const parsedFragment = parse5.parseFragment(domString.trim());

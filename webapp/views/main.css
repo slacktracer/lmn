@@ -20,6 +20,13 @@
 }
 
 .input,
-.ouput {
+.output {
+  border: 0;
   height: calc(100vh - 6rem);
+  padding: 0.8rem;
+}
+
+.input:focus,
+.output:focus {
+  outline: 0.1rem dashed black;
 }

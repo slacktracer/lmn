@@ -14,7 +14,11 @@ export default ({ actions, state }) => [
           "h1",
           [
             "Transform ",
-            ["span", { onclick: () => actions.changeMode() }, state.mode],
+            [
+              "span",
+              { onclick: () => actions.changeMode(), tabindex: 0 },
+              state.mode
+            ],
             "  in ",
             [
               "a",
@@ -31,8 +35,19 @@ export default ({ actions, state }) => [
     ],
     [
       "textarea",
-      { class: "input", oninput: event => actions.input(event.target.value) }
+      {
+        class: "input",
+        oninput: event => actions.input(event.target.value),
+        placeholder: `HTML goes here =)`
+      }
     ],
-    ["textarea", { class: "output", value: state.output }]
+    [
+      "textarea",
+      {
+        class: "output",
+        value: state.output,
+        placeholder: `ijk comes out here \\o/`
+      }
+    ]
   ]
 ];

@@ -1,1 +1,0 @@
-.main{display:grid;grid-template-areas:"header header" "input output";grid-template-columns:1fr 1fr;grid-template-rows:6rem 1fr}.header{align-self:center;grid-area:header;padding-left:1rem}.input{grid-area:input}.output{grid-area:output}.input,.ouput{height:calc(100vh - 6rem)}*{box-sizing:border-box}body{font-family:sans-serif;margin:0}
