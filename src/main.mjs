@@ -1,5 +1,6 @@
 import jsx from "jsx-transform";
 import parse5 from "parse5";
+import * as recast from "recast";
 
 const isLineBreakAndZeroOrMoreSpaces = new RegExp("^\\n\\s*$", "g");
 
@@ -57,9 +58,12 @@ function parseNodes(nodes) {
   }, []);
 }
 
+const builders = recast.default.types.builders;
+
 export default function lmn(domString, mode = "HTML") {
   if (mode === "JSX") {
-    return jsx.fromString(domString, { factory: "h" });
+    const ast = recast.parse(jsx.fromString(domString, { factory: "h" }));
+    return hToIJK(ast);
   }
 
   const parsedFragment = parse5.parseFragment(domString.trim());
@@ -72,3 +76,37 @@ export default function lmn(domString, mode = "HTML") {
 
   return parsedNodes;
 }
+
+const hToIJK_helper = element => {
+  if (element.type === "ArrayExpression") {
+    return builders.arrayExpression(
+      element.elements.map(expression => {
+        if (
+          expression.type === "CallExpression" &&
+          expression.callee.name === "h"
+        ) {
+          return builders.arrayExpression(expression.arguments);
+        }
+        return expression;
+      })
+    );
+  }
+  return element;
+};
+
+const hToIJK = ast => {
+  const [body] = ast.program.body;
+
+  if (body.expression) {
+    if (
+      body.expression.type === "CallExpression" &&
+      body.expression.callee.name === "h"
+    ) {
+      body.expression = builders.arrayExpression(body.expression.arguments);
+      body.expression.elements = body.expression.elements.map(hToIJK_helper);
+    }
+  }
+
+  // return ast;
+  return recast.default.prettyPrint(ast).code;
+};

@@ -1,6 +1,6 @@
 {
   "name": "lmn",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Transform HTML in \"ijk\"",
   "main": "./src/main.mjs",
   "scripts": {
@@ -21,7 +21,8 @@
   "homepage": "https://github.com/slacktracer/lmn#readme",
   "dependencies": {
     "jsx-transform": "^2.4.0",
-    "parse5": "^5.0.0"
+    "parse5": "^5.0.0",
+    "recast": "^0.15.0"
   },
   "devDependencies": {
     "hyperapp": "^1.2.6",

@@ -479,6 +479,30 @@ const cases = [
         ]
       ]
     ]
+  },
+  {
+    jsx: `h('li', {
+  class: done && "done",
+  onclick: () =>
+    toggle({
+      value: done,
+      id: id
+    })
+}, [
+  value
+])`,
+    ijk: []
+  },
+  {
+    jsx: `h('div', null, [
+  h('h1', {class: "wild"}, ["Todo"]),
+  h('ul', null, [
+    state.todos.map(({ id, value, done }) => (
+      TodoItem({id: id, value: value, done: done, toggle: actions.toggle})
+    ))
+  ])
+])`,
+    ijk: []
   }
 ];
 
