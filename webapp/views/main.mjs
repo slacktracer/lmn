@@ -13,13 +13,12 @@ export default ({ actions, state }) => [
         [
           "h1",
           [
-            "Transform ",
             [
               "span",
               { onclick: () => actions.changeMode(), tabindex: 0 },
               state.mode
             ],
-            "  in ",
+            "  to ",
             [
               "a",
               {

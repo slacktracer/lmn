@@ -11,11 +11,11 @@ export default {
 
     let output;
 
-    // if (transformed != null) {
-    output = JSON.stringify(transformed, null, 2);
-    // } else {
-    // output = "Invalid input.";
-    // }
+    if (state.mode === "HTML") {
+      output = JSON.stringify(transformed, null, 2);
+    } else {
+      output = transformed;
+    }
 
     return { input: text, output };
   }
